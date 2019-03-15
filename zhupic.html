@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+	<head>
+		<title></title>
+		<meta charset = "utf-8"/>
+	</head>
+<style type="text/css">
+
+/*整个显示柱状图的区域的高度的是500px;每个柱子的宽是50px;每个柱子的间隔是：50px；
+第一个柱子的left是100px；*/
+
+*{
+	margin:0px;
+	padding:0px;
+}
+
+#box{
+	width:800px;
+	height:500px;
+	border-left:solid 2px black;
+	border-bottom:solid 2px black;
+	position:relative;
+	
+}
+</style>
+
+<body>
+	<input id="btn" type="button" value="显示销售数据" />
+	<div id="box">
+		
+	</div>
+</body>
+</html>
+<script type="text/javascript" src="js/tools.js" ></script>
+<script type="text/javascript">
+
+
+// 响应回来的数据格式示例：
+
+ var data = [
+ 	{
+ 		year:2011,
+ 		money:450
+ 	},
+ 	{
+ 		year:2012,
+ 		money:250
+ 	},
+ 	{
+ 		year:2013,
+ 		money:350
+ 	},
+ 	{
+ 		year:2014,
+ 		money:550
+ 	},
+ 	{
+ 		year:2015,
+ 		money:850
+ 	},
+ 	{
+ 		year:2016,
+ 		money:750
+ 	},
+ 	{
+ 		year:2017,
+ 		money:1050
+ 	},
+ 	{
+ 		year:2018,
+ 		money:2050
+ 	}
+ ] 
+
+//#20cd4f
+function getColor(){
+	let str="#";
+	for(let i=0;i<6;i++){
+		str+=parseInt(Math.random()*16).toString(16);
+	}
+	return str;
+}
+
+function getMaxMoney(data){	
+	let maxMoney=data[0].money;
+	for (let i in data){
+		if(data[i].money>maxMoney){
+			maxMoney=data[i].money;
+		}
+	}
+	return maxMoney;
+}
+
+
+function drawZhu(){
+	let maxWidth=800;
+	let zhuWidth=800/(data.length*2+1);
+	let zhuSpace=zhuWidth;
+	let maxMoney=getMaxMoney();
+	let maxHeight=500-20;
+	let pxperMoney=maxHeigth/maxMoney;
+	for(let i in data){
+		// 1创建大div
+		let bigDiv=document.creatElement("div");
+		bigDiv.style.cssText="position:absolute;bottom:-20px;";
+		bigDiv.style.width=zhuWidth+"px";
+		bigDiv.style.left=(i+1)*zhuSpace+i*zhuWidth+"px";
+		$("#box").appendChild(bigDiv);
+		// 2创建上面的span放置钱数
+		let spanMoney=document.creatElement("span");
+		spanMoney.style.cssText="text-align:center;dispaly:block;height=20px;white-space:nowrap;";
+		spanMoney.style.width=zhuWidth+"px";
+		spanMoney.innerHTML=data[i].money+"万";
+		spanMoney.appenChild(spanMoney);]
+		// 3创建div放置有颜色的柱子
+		let divColor=document.creatElement("div");
+		divColor.style.width=zhuWidth+"px";
+		divColor.style.height=data[i].money*pxperMoney+"px";
+		divColor.style.color=getColor();
+		
+	}
+}
+
+window.onload = function(){
+	drawZhu();
+}
+
+</script>
